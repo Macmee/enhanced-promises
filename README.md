@@ -12,7 +12,7 @@ I wanted to use native JS Promises, I wanted `spread` and `delay` from Q, and I 
 
 ## How do I use this?
 
-`npm install enhanced-promises` and include `require('enhanced-promises')` and carry on using `new Promise(...)` as you would before, with the added methods sprinked on top. If you're in a browser then include `enhanced-promises.min.js`
+`npm install enhanced-promises --save` and include `require('enhanced-promises')` and carry on using `new Promise(...)` as you would before, with the added methods sprinked on top. If you're in a browser then include `enhanced-promises.min.js`
 
 ### What are Promises?
 

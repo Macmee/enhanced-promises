@@ -14,13 +14,9 @@ I wanted to use native JS Promises, I wanted `spread` and `delay` from Q, and I 
 
 `npm install enhanced-promises` and include `require('enhanced-promises')` and carry on using `new Promise(...)` as you would before, with the added methods sprinked on top. If you're in a browser then include `enhanced-promises.min.js`
 
-*mostly stolen from Q documentation since it's the same*
+### What are Promises?
 
-## Creating promises
-
-### General Promises
-
-So as I said, this is a Promise library. Ideally the environment already supports promises, but if not this library provides a fallback. (from firefox documentation): The Promise object is used for deferred and asynchronous computations. A Promise represents an operation that hasn't completed yet, but is expected in the future. Learn more about promises, see more about promises at https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise
+So as I said, this is a Promise library. Ideally your runtime environment already supports promises, but if not this library provides a fallback. (from firefox documentation): The Promise object is used for deferred and asynchronous computations. A Promise represents an operation that hasn't completed yet, but is expected in the future. Learn more about promises, see more about promises at https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
 You can create promises in numerous ways, a few examples include:
 
@@ -31,7 +27,7 @@ new Promise(function(resolve, reject) {
   console.log(value); //123
 });
 ```
-
+or
 ```
 Promise.fcall(function() {
   return 123;
@@ -39,13 +35,13 @@ Promise.fcall(function() {
   console.log(value); //123
 });
 ```
-
+or
 ```
 Promise.resolve(123).then(function(value) {
   console.log(value); //123
 });
 ```
-
+or
 ```
 Promise.reject(123).catch(function(value) {
   console.log(value); //123

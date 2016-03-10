@@ -18,7 +18,7 @@ I wanted to use native JS Promises, I wanted `spread` and `delay` from Q, and I 
 
 ## Creating promises
 
-## General Promises
+### General Promises
 
 So as I said, this is a Promise library. Ideally the environment already supports promises, but if not this library provides a fallback. (from firefox documentation): The Promise object is used for deferred and asynchronous computations. A Promise represents an operation that hasn't completed yet, but is expected in the future. Learn more about promises, see more about promises at https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
@@ -66,10 +66,9 @@ Promise
 
 ### Promise.fcall
 
-fcall
-
 You can create a promise from a value using Q.fcall. This returns a promise for 10.
 
+```
 return Q.fcall(function () {
     return 10;
 });
@@ -78,6 +77,7 @@ You can also use fcall to get a promise for an exception.
 return Q.fcall(function () {
     throw new Error("Can't do it");
 });
+```
 
 ### Defer
 
@@ -120,8 +120,6 @@ return readFile("foo.txt", "utf-8");
 var redisClientGet = Promise.nbind(redisClient.get, redisClient);
 return redisClientGet("user:1:id");
 ```
-
-## things you can do to promise objects
 
 ### Spread
 

@@ -16,7 +16,7 @@ I wanted to use native JS Promises, I wanted `spread` and `delay` from Q, and I 
 
 *mostly stolen from Q documentation since it's the same*
 
-### Creating promises
+## Creating promises
 
 ## General Promises
 
@@ -52,7 +52,7 @@ Promise.reject(123).catch(function(value) {
 });
 ```
 
-## enhancement: Promise.delay(ms)
+### Promise.delay(ms)
 
 returns a promise that simply delays for X ms and then resolves
 
@@ -64,7 +64,7 @@ Promise
   })
 ```
 
-## enhancement: Promise.fcall
+### Promise.fcall
 
 fcall
 
@@ -79,7 +79,7 @@ return Q.fcall(function () {
     throw new Error("Can't do it");
 });
 
-## Defer
+### Defer
 
 You can use deferred objects like so:
 
@@ -95,7 +95,7 @@ FS.readFile("foo.txt", "utf-8", function (error, text) {
 return deferred.promise;
 ```
 
-## enhancement: Adapting NodeJS
+### Adapting NodeJS
 
 You can wrap promises around nodejs functionality:
 
@@ -114,16 +114,16 @@ Promise.npost(redisClient, "get", ["user:1:id"]);
 and you can make re-usable versions of the above like so:
 
 ```
-var readFile = Q.denodeify(FS.readFile);
+var readFile = Promise.denodeify(FS.readFile);
 return readFile("foo.txt", "utf-8");
 
-var redisClientGet = Q.nbind(redisClient.get, redisClient);
+var redisClientGet = Promise.nbind(redisClient.get, redisClient);
 return redisClientGet("user:1:id");
 ```
 
-### things you can do to promise objects
+## things you can do to promise objects
 
-## enhancement: Spread
+### Spread
 
 use as a replacement for then, if the previous promise returned an array, spread treats each element as a separate property, for example:
 

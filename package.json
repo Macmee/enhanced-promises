@@ -1,0 +1,25 @@
+{
+  "name": "enhanced-promises",
+  "version": "1.0.0",
+  "description": "add Q functionality to native JS promises (and polyfill Promises for old versions of JS)",
+  "main": "enhanced-promises.js",
+  "scripts": {
+    "test": "jasmine-node --captureExceptions spec/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://Macmee@github.com/Macmee/enhanced-promises.git"
+  },
+  "keywords": [
+    "Q",
+    "Promise",
+    "Enhanced",
+    "Native"
+  ],
+  "author": "David Zorychta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Macmee/enhanced-promises/issues"
+  },
+  "homepage": "https://github.com/Macmee/enhanced-promises"
+}

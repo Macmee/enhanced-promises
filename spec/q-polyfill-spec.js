@@ -199,6 +199,56 @@ describe("Q Polyfill should work", function() {
       })
   });
 
+  // -- makeNodeResolver() should work
+
+  it("makeNodeResolver() should resolve", function(done) {
+    var deferred = Promise.defer();
+    testNodeObject.test('123', '', deferred.makeNodeResolver());
+    deferred.promise
+      .then(function(resolve) {
+        expect(resolve).toBe('123456');
+        done();
+      })
+      .catch(function() {
+        throw Error('should never run');
+      });
+  });
+
+  it("makeNodeResolver() should reject", function(done) {
+    var deferred = Promise.defer();
+    testNodeObject.testFailure('123', '', deferred.makeNodeResolver());
+    deferred.promise
+      .then(function(resolve) {
+        throw Error('should never run');
+      })
+      .catch(function() {
+        done()
+      });
+  });
+
+  // -- $promise should work
+
+  it("$promise should resolve", function(done) {
+    testNodeObject.$promise('test', '123', '')
+      .then(function(resolve) {
+        expect(resolve).toBe('123456');
+        done();
+      })
+      .catch(function() {
+        throw Error('should never run');
+      });
+  });
+
+  it("$promise should reject", function(done) {
+    testNodeObject.$promise('testFailure', '123', '')
+      .then(function(resolve) {
+        throw Error('should never run');
+      })
+      .catch(function() {
+        done()
+      });
+  });
+
 
 
 });

@@ -293,25 +293,39 @@
     })
   }
 
-//  var proto = Object.getPrototypeOf(global.Promise.defer());
-//  Object.defineProperty(proto, 'makeNodeResolver', {
-//    enumerable: false,
-//    get: function() {
-//      var self = this;
-//      return function(err /* , args... */) {
-//        if (err) {
-//          self.reject(err);
-//        } else {
-//          var args = arguments[1];
-//          if (arguments.length > 2) {
-//            args = [];
-//            for(var i = 1; i < arguments.length; i++) args.push(arguments[i]);
-//          }
-//          self.resolve(args);
-//        }
-//      };
-//    }
-//  });
+  var originalDefer = global.Promise.defer;
+  global.Promise.defer = function() {
+    var deferred = originalDefer.call(global.Promise);
+    deferred.makeNodeResolver = function() {
+        var self = this;
+        return function(err /* , args... */) {
+          if (err) {
+            self.reject(err);
+          } else {
+            var args = arguments[1];
+            if (arguments.length > 2) {
+              args = [];
+              for(var i = 1; i < arguments.length; i++) args.push(arguments[i]);
+            }
+            self.resolve(args);
+          }
+        };
+    }
+    return deferred;
+  };
+
+  if (!Object.prototype.$promise) {
+    Object.defineProperty(Object.prototype, '$promise', {
+      enumerable: false,
+      get: function() {
+        var self = this;
+        return function(fn /* , args... */) {
+          var args = [].slice.call(arguments, 1);
+          return global.Promise.npost(self, fn, args);
+        }
+      }
+    });
+  }
 
   if (typeof module != 'undefined') {
     module.exports = global.Promise;

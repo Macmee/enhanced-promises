@@ -1,6 +1,6 @@
 {
   "name": "enhanced-promises",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "add Q functionality to native JS promises (and polyfill Promises for old versions of JS)",
   "main": "enhanced-promises.js",
   "scripts": {

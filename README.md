@@ -2,7 +2,7 @@
 
 ## What is this?
 
-As you might know, Javascript Harmony introduces native Promises. However, these Promises often lack useful functionality we are used to with other promise libraries such as Q. This library very simply adds useful methods to native Javascript promises such as `spread`, `delay`, `fcall`, `all()`, `nbind`, `ninvoke`, `nfcall`, `nfapply`, `denodify`, `nbind` and `npost`.
+As you might know, Javascript Harmony introduces native Promises. However, these Promises often lack useful functionality we are used to with other promise libraries such as Q. This library very simply adds useful methods to native Javascript promises such as `spread`, `delay`, `makeNodeResolver`, `fcall`, `all()`, `nbind`, `ninvoke`, `nfcall`, `nfapply`, `denodify`, `nbind` and `npost`.
 
 Additionally, if native promises are not available, the library includes a very simple Promise implementation as a substitute.
 
@@ -91,9 +91,19 @@ FS.readFile("foo.txt", "utf-8", function (error, text) {
 return deferred.promise;
 ```
 
+### Object.$promise
+
+This is sort of adapting NodeJS but I'm giving it its own section since I think it's cool. Objects have a `$promise` method on them so that you don't ned to wrap anything around a Promise call explicitly, you can simply do:
+
+```
+Fs.$promise('readFile', 'foo.txt').then(function(text){ ... });
+```
+
+The `$promise` function is available on any object and is the easiest way to turn a non-promise function into a function that returns a promise.
+
 ### Adapting NodeJS
 
-You can wrap promises around nodejs functionality:
+You can also wrap promises around nodejs functionality using:
 
 ```
 Promise.nfcall(FS.readFile, "foo.txt", "utf-8").then(function(text){ ... });
@@ -115,6 +125,14 @@ return readFile("foo.txt", "utf-8");
 
 var redisClientGet = Promise.nbind(redisClient.get, redisClient);
 return redisClientGet("user:1:id");
+```
+
+You can also use `makeNodeResolver`:
+
+```
+var deferred = Promise.defer();
+FS.readFile("foo.txt", "utf-8", deferred.makeNodeResolver());
+return deferred.promise;
 ```
 
 ### Spread

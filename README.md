@@ -6,7 +6,7 @@ As you might know, Javascript Harmony introduces native Promises. However, these
 
 Additionally, if native promises are not available, the library includes a very simple Promise implementation as a substitute.
 
-You can just `require('enhanced-promises')` and start using native JS promises with all these useful methods.
+You can just `require('enhanced-promises')` within node, or include `enhanced-promises.min.js` in your web project and start using native JS promises with all these useful methods.
 
 ## What's the point?
 

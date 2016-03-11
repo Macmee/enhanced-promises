@@ -1,6 +1,5 @@
 (function(global) {
 
-  var Promise = global.Promise;
   if (!Promise) {
 
     function Defer(owner) {
@@ -38,7 +37,7 @@
       }
     };
 
-    Promise = global.Promise = function(resolverFn) {
+    var Promise = global.Promise = function(resolverFn) {
       if (resolverFn) {
         var deferred = this.deferred = new Defer(this);
         try {
@@ -110,15 +109,6 @@
       });
       return deferred.promise;
     };
-
-    global.Promise.prototype.all = function() {
-      return this.then(function(promiseArray) {
-        if (!promiseArray.constructor === Array) {
-          promiseArray = [promiseArray];
-        }
-        return Promise.all(promiseArray);
-      })
-    }
 
     Promise.race = function(promises) {
       var completed = false;
@@ -217,7 +207,7 @@
   }
 
   global.Promise.npost = function(object, fn, args) {
-    return new Promise(function(resolve, reject) {
+    return new global.Promise(function(resolve, reject) {
       args.push(function(err /* , args... */) {
         if (err) {
           reject(err);
@@ -236,30 +226,30 @@
 
   global.Promise.ninvoke = function(object, fn  /* , args... */) {
     var args = [].slice.call(arguments, 2);
-    return Promise.npost(object, fn, args);
+    return global.Promise.npost(object, fn, args);
   };
 
   global.Promise.nbind = function(object, fn) {
     return function(/* args... */) {
       var args = [].slice.call(arguments);
-      return Promise.npost(object, fn, args);
+      return global.Promise.npost(object, fn, args);
     };
   };
 
   global.Promise.denodify = function(fn) {
     return function(/* args... */) {
       var args = [].slice.call(arguments);
-      return Promise.npost(null, fn, args);
+      return global.Promise.npost(null, fn, args);
     };
   };
 
   global.Promise.nfapply = function(fn, args) {
-    return Promise.npost(null, fn, args);
+    return global.Promise.npost(null, fn, args);
   };
 
   global.Promise.nfcall = function(fn /* , args... */) {
     var args = [].slice.call(arguments, 1);
-    return Promise.npost(null, fn, args);
+    return global.Promise.npost(null, fn, args);
   };
 
   global.Promise.prototype.spread = function(fn) {
@@ -273,7 +263,7 @@
   };
 
   global.Promise.delay = function(ms) {
-    return new Promise(function(resolve, reject) {
+    return new global.Promise(function(resolve, reject) {
       setTimeout(resolve, ms || 0);
     });
   };
@@ -285,14 +275,23 @@
     } catch (e) {
       object = e;
     }
-    if (object instanceof Promise) {
+    if (object instanceof global.Promise) {
       return object;
     } else if (object instanceof Error) {
-      return Promise.reject(object);
+      return global.Promise.reject(object);
     } else {
-      return Promise.resolve(object);
+      return global.Promise.resolve(object);
     }
   };
+
+  global.Promise.prototype.all = function() {
+    return this.then(function(promiseArray) {
+      if (!promiseArray.constructor === Array) {
+        promiseArray = [promiseArray];
+      }
+      return global.Promise.all(promiseArray);
+    })
+  }
 
 //  var proto = Object.getPrototypeOf(global.Promise.defer());
 //  Object.defineProperty(proto, 'makeNodeResolver', {
@@ -315,7 +314,7 @@
 //  });
 
   if (typeof module != 'undefined') {
-    module.exports = Promise;
+    module.exports = global.Promise;
   }
 
 })(typeof global === 'undefined' ? window : global);

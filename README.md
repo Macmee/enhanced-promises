@@ -2,9 +2,11 @@
 
 ## What is this?
 
-As you might know, Javascript Harmony introduces native Promises. However, these Promises often lack useful functionality we are used to with other promise libraries such as Q. This library very simply adds useful methods to native Javascript promises such as `spread`, `delay`, `makeNodeResolver`, `fcall`, `all()`, `nbind`, `ninvoke`, `nfcall`, `nfapply`, `denodify`, `nbind` and `npost`.
+As you might know, Javascript Harmony introduces native Promises. However, these Promises lack useful functionality found in promise libraries such as Q. Also, native Promises aren't available in every environment. This library adds useful functionality to native promises such as `spread`, `delay`, `makeNodeResolver`, `$promise`, `fcall`, `all()`, `nbind`, `ninvoke`, `nfcall`, `nfapply`, `denodify`, `nbind` and `npost`.
 
 Additionally, if native promises are not available, the library includes a very simple Promise implementation as a substitute.
+
+You can just `require('enhanced-promises')` and start using native JS promises with all these useful methods.
 
 ## What's the point?
 
@@ -91,7 +93,7 @@ FS.readFile("foo.txt", "utf-8", function (error, text) {
 return deferred.promise;
 ```
 
-### Object.$promise
+### $promise
 
 This is sort of adapting NodeJS but I'm giving it its own section since I think it's cool. Objects have a `$promise` method on them so that you don't ned to wrap anything around a Promise call explicitly, you can simply do:
 

@@ -62,15 +62,15 @@ Promise
 
 ### Promise.fcall
 
-You can create a promise from a value using Q.fcall. This returns a promise for 10.
+You can create a promise from a value using Promise.fcall. This returns a promise for 10.
 
 ```
-return Q.fcall(function () {
+return Promise.fcall(function () {
     return 10;
 });
 You can also use fcall to get a promise for an exception.
 
-return Q.fcall(function () {
+return Promise.fcall(function () {
     throw new Error("Can't do it");
 });
 ```

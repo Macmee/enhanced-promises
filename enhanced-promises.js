@@ -1,6 +1,6 @@
 (function(global) {
 
-  if (!Promise) {
+  if (!global.Promise) {
 
     function Defer(owner) {
       if (owner) {

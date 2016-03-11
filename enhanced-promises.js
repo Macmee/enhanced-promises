@@ -1,6 +1,7 @@
 (function(global) {
 
-  if (!global.Promise) {
+  var Promise = global.Promise;
+  if (!Promise) {
 
     function Defer(owner) {
       if (owner) {
@@ -37,7 +38,7 @@
       }
     };
 
-    var Promise = global.Promise = function(resolverFn) {
+    Promise = global.Promise = function(resolverFn) {
       if (resolverFn) {
         var deferred = this.deferred = new Defer(this);
         try {

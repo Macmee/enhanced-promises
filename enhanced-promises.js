@@ -49,7 +49,7 @@
           deferred.reject(e);
         }
       }
-    }
+    };
 
     Promise.prototype.thenMethod = undefined;
     Promise.prototype.thenMethodEvaluated = false;
@@ -290,7 +290,23 @@
         promiseArray = [promiseArray];
       }
       return global.Promise.all(promiseArray);
-    })
+    });
+  };
+
+  // firefox doesnt support Promise.defer
+  if (!global.Promise.defer) {
+    global.Promise.defer = function() {
+      var deferred = {};
+      deferred.promise = new global.Promise(function(resolve, reject) {
+        deferred.resolve = function(value) {
+          resolve(value);
+        };
+        deferred.reject = function(value) {
+          reject(value);
+        };
+      });
+      return deferred;
+    };
   }
 
   var originalDefer = global.Promise.defer;
@@ -310,7 +326,7 @@
             self.resolve(args);
           }
         };
-    }
+    };
     return deferred;
   };
 
@@ -322,7 +338,7 @@
         return function(fn /* , args... */) {
           var args = [].slice.call(arguments, 1);
           return global.Promise.npost(self, fn, args);
-        }
+        };
       }
     });
   }

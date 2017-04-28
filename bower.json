@@ -1,0 +1,27 @@
+{
+  "name": "enhanced-promises",
+  "description": "add Q functionality to native JS promises (and polyfill Promises for old versions of JS)",
+  "main": [
+    "enhanced-promises.min.js",
+  ],
+  "dependencies": {
+  },
+  "devDependencies": {
+  },
+  "moduleType": [
+    "node",
+    "globals"
+  ],
+  "keywords": [
+    "Q",
+    "Promise",
+    "Enhanced",
+    "Native"
+  ],
+  "authors": [
+    "David Zorychta <macmee@gmail.com>"
+  ],
+  "license": "ISC",
+  "ignore": [
+  ]
+}
